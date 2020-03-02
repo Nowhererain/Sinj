@@ -1,1 +1,1 @@
-# Sinj
+# Sinj is not juzikong
