@@ -33,11 +33,12 @@ Hook::Hook(QWidget *parent): QObject(parent)
 
 Hook::~Hook()
 {
+    qDebug() << "Hook call destruction";
     if(whook){
         UnhookWinEvent(whook);
         whook = nullptr;
+        qDebug() << "Uninstall hook";
     }
-    qDebug() << "Hook call destruction";
 }
 
 #endif
