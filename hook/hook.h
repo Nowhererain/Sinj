@@ -23,6 +23,6 @@ protected:
     HWINEVENTHOOK whook;
 
 };
-#endif
+#endif //Q_OS_WIN
 
 #endif // HOOK_H

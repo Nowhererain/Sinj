@@ -41,7 +41,7 @@ Hook::~Hook()
     }
 }
 
-#endif
+#endif //Q_OS_WIN
 
 
 
