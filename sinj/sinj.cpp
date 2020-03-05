@@ -67,12 +67,6 @@ Sinj::~Sinj()
 #ifdef Q_OS_WINDOWS
 void CALLBACK WinEventProc(HWINEVENTHOOK, DWORD event, HWND, LONG, LONG, DWORD, DWORD)
 {
-    /*Q_UNUSED(hWinEventHook);
-    Q_UNUSED(hwnd);
-    Q_UNUSED(idObject);
-    Q_UNUSED(idChild);
-    Q_UNUSED(dwEventThread);
-    Q_UNUSED(dwmsEventTime);*/
     //end
     if (event == EVENT_SYSTEM_MINIMIZEEND){
         ::SetWindowPos(hsinj, HWND_NOTOPMOST, 0, 0, 0, 0, ZPOS_FLAGS);
