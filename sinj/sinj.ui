@@ -57,7 +57,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-	border-image: url(:/icon/icon/last.png);
+	border-image: url(:/icon/last.png);
 }</string>
       </property>
       <property name="text">
@@ -81,7 +81,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-	border-image: url(:/icon/icon/next.png);
+	border-image: url(:/icon/next.png);
 }</string>
       </property>
       <property name="text">
@@ -105,7 +105,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-	border-image: url(:/icon/icon/setting.png);
+	border-image: url(:/icon/setting.png);
 }</string>
       </property>
       <property name="text">
@@ -138,7 +138,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-border-image: url(:/icon/icon/close.png);
+border-image: url(:/icon/close.png);
 }</string>
       </property>
       <property name="text">

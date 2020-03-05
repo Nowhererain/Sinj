@@ -1,5 +1,6 @@
 #include "sinj/sinj.h"
 #include "hook/hook.h"
+#include <QDesktopWidget>
 #include <QTranslator>
 #include <QApplication>
 
@@ -17,6 +18,8 @@ extern HWND hsinj;
     Hook hook;
     hsinj = (HWND)sinj.winId();
 #endif
+    int right = QApplication::desktop()->width();
+    sinj.move(right - sinj.width() - 60, 50);
     sinj.show();
     return app.exec();
 }

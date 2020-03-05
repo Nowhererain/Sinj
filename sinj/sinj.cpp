@@ -2,12 +2,15 @@
 #include "ui_sinj.h"
 #include <QMouseEvent>
 #include <QPainter>
+#include <QDebug>
 
 Sinj::Sinj(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Sinj)
 {
     ui->setupUi(this);
+    systray = new Systray(QIcon(":icon/icon.png"), this);
+
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
 }
@@ -36,6 +39,11 @@ void Sinj::paintEvent(QPaintEvent *)
     painter.fillRect(this->rect(), QColor(0, 0, 0, 122));
 }
 
+void Sinj::showEvent(QShowEvent *)
+{
+    systray->show();
+}
+
 void Sinj::on_closeBtn_clicked()
 {
     QApplication::quit();
@@ -43,5 +51,6 @@ void Sinj::on_closeBtn_clicked()
 
 Sinj::~Sinj()
 {
+    qDebug() << "Sinj call detruction";
     delete ui;
 }

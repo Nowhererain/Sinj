@@ -18,12 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     hook/hook.cpp \
     main.cpp \
-    sinj/sinj.cpp
+    sinj/sinj.cpp \
+    systray/systray.cpp
 
 HEADERS += \
     hook/hook.h \
     sinj.h \
-    sinj/sinj.h
+    sinj/sinj.h \
+    systray/systray.h
 
 FORMS += \
     sinj/sinj.ui

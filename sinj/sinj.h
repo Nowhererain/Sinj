@@ -2,6 +2,7 @@
 #define SINJ_H
 
 #include <QWidget>
+#include "systray/systray.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Sinj; }
@@ -19,11 +20,13 @@ protected:
     Ui::Sinj *ui;
     bool pressed;
     QPoint wpos;
+    Systray * systray;
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 protected slots:
     void on_closeBtn_clicked();
