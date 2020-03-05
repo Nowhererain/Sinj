@@ -2,26 +2,12 @@
 #include "ui_sinj.h"
 #include <QMouseEvent>
 #include <QPainter>
-#ifdef Q_OS_WINDOWS
-HWND hsinj = NULL;
-#endif
 
 Sinj::Sinj(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Sinj)
 {
     ui->setupUi(this);
-#ifdef Q_OS_WINDOWS
-    whook = ::SetWinEventHook(
-                EVENT_SYSTEM_MINIMIZESTART,
-                EVENT_SYSTEM_MINIMIZEEND,
-                nullptr,
-                WinEventProc,
-                0,
-                0,
-                WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
-    );
-#endif
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
 }
@@ -57,24 +43,5 @@ void Sinj::on_closeBtn_clicked()
 
 Sinj::~Sinj()
 {
-    if(whook){
-        UnhookWinEvent(whook);
-        whook = nullptr;
-    }
     delete ui;
 }
-
-#ifdef Q_OS_WINDOWS
-void CALLBACK WinEventProc(HWINEVENTHOOK, DWORD event, HWND, LONG, LONG, DWORD, DWORD)
-{
-    //end
-    if (event == EVENT_SYSTEM_MINIMIZEEND){
-        ::SetWindowPos(hsinj, HWND_NOTOPMOST, 0, 0, 0, 0, ZPOS_FLAGS);
-        ::SetWindowPos(hsinj, HWND_BOTTOM, 0, 0, 0, 0, ZPOS_FLAGS);
-    }
-    //start
-    if (event == EVENT_SYSTEM_MINIMIZESTART){
-        ::SetWindowPos(hsinj, HWND_TOPMOST, 0, 0, 0, 0, ZPOS_FLAGS);
-    }
-}
-#endif

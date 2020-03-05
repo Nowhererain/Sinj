@@ -16,13 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    hook/hook.cpp \
     main.cpp \
     sinj/sinj.cpp
 
 HEADERS += \
+    hook/hook.h \
     sinj.h \
-    sinj/sinj.h \
-    sinj/sinj_global.h
+    sinj/sinj.h
 
 FORMS += \
     sinj/sinj.ui

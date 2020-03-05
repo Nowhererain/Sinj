@@ -2,7 +2,6 @@
 #define SINJ_H
 
 #include <QWidget>
-#include "sinj_global.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Sinj; }
@@ -20,9 +19,6 @@ protected:
     Ui::Sinj *ui;
     bool pressed;
     QPoint wpos;
-#ifdef Q_OS_WINDOWS
-    HWINEVENTHOOK whook;
-#endif
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
