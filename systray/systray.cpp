@@ -7,7 +7,7 @@ Systray::Systray(const QIcon &icon, QWidget *parent): QSystemTrayIcon(icon, pare
     sMenu = new QMenu(parent);
     init();
 
-    QObject::connect(this, &QSystemTrayIcon::activated, this, [=](){
+    connect(this, &QSystemTrayIcon::activated, [=](){
         sMenu->exec(QCursor::pos());
     });
 }
@@ -18,12 +18,7 @@ void Systray::init()
 
     sMenu->addAction(sQuit);
 
-    QObject::connect(sQuit, &QAction::triggered, this, &QApplication::quit);
-}
-
-void Systray::connect()
-{
-
+    connect(sQuit, &QAction::triggered, &QApplication::quit);
 }
 
 Systray::~Systray()

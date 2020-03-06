@@ -10,7 +10,6 @@ class Systray: public QSystemTrayIcon
 {
 public:
     Systray(const QIcon &icon, QWidget *parent = nullptr);
-    void connect();
     ~Systray();
 
 protected:
