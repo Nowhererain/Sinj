@@ -23,7 +23,6 @@ SOURCES += \
 
 HEADERS += \
     hook/hook.h \
-    sinj.h \
     sinj/sinj.h \
     systray/systray.h
 

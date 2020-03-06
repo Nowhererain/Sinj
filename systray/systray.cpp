@@ -14,7 +14,7 @@ Systray::Systray(const QIcon &icon, QWidget *parent): QSystemTrayIcon(icon, pare
 
 void Systray::init()
 {
-    sQuit = new QAction(tr("Quit"), sMenu);
+    sQuit = new QAction(tr("quit"), sMenu);
 
     sMenu->addAction(sQuit);
 
