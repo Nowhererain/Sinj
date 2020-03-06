@@ -2,6 +2,7 @@
 #include "ui_sinj.h"
 #include <QMouseEvent>
 #include <QPainter>
+#include <QDesktopWidget>
 #include <QDebug>
 
 Sinj::Sinj(QWidget *parent)
@@ -9,10 +10,12 @@ Sinj::Sinj(QWidget *parent)
     , ui(new Ui::Sinj)
 {
     ui->setupUi(this);
-    systray = new Systray(QIcon(":icon/icon.png"), this);
 
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
+
+    systray = new Systray(QIcon(":icon/icon.png"), this);
+    settingWindow = new SettingWindow(this);
 }
 
 void Sinj::mousePressEvent(QMouseEvent *event)
@@ -41,12 +44,27 @@ void Sinj::paintEvent(QPaintEvent *)
 
 void Sinj::showEvent(QShowEvent *)
 {
+    if(systray == nullptr){
+        qDebug() << "Wrong: systray is a nullptr.";
+        return;
+    }
     systray->show();
 }
 
 void Sinj::on_closeBtn_clicked()
 {
     QApplication::quit();
+}
+
+void Sinj::on_settingBtn_clicked()
+{
+    if(settingWindow == nullptr){
+        qDebug() << "Wrong: settingWindow is a nullptr.";
+        return;
+    }
+    QRect rect = QApplication::desktop()->availableGeometry();
+    settingWindow->move((rect.width() - settingWindow->width()) * 0.5, (rect.height() - settingWindow->height()) * 0.5);
+    settingWindow->exec();
 }
 
 Sinj::~Sinj()

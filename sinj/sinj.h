@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "systray/systray.h"
+#include "settingwindow/settingwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Sinj; }
@@ -20,7 +21,8 @@ protected:
     Ui::Sinj *ui;
     bool pressed;
     QPoint wpos;
-    Systray * systray;
+    Systray * systray = nullptr;
+    SettingWindow * settingWindow = nullptr;
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -30,5 +32,6 @@ protected:
 
 protected slots:
     void on_closeBtn_clicked();
+    void on_settingBtn_clicked();
 };
 #endif // SINJ_H

@@ -18,15 +18,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     hook/hook.cpp \
     main.cpp \
+    settingwindow/settingwindow.cpp \
     sinj/sinj.cpp \
     systray/systray.cpp
 
 HEADERS += \
     hook/hook.h \
+    settingwindow/settingwindow.h \
     sinj/sinj.h \
     systray/systray.h
 
 FORMS += \
+    settingwindow/settingwindow.ui \
     sinj/sinj.ui
 
 TRANSLATIONS += \
