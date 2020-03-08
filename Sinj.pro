@@ -19,21 +19,24 @@ SOURCES += \
     filemanager/filemanager.cpp \
     hook/hook.cpp \
     main.cpp \
-    settingwindow/settingwindow.cpp \
     sinj/sinj.cpp \
-    systray/systray.cpp
+    systray/systray.cpp \
+    window/editwindow.cpp \
+    window/settingwindow.cpp
 
 HEADERS += \
     filemanager/filemanager.h \
     global.h \
     hook/hook.h \
-    settingwindow/settingwindow.h \
     sinj/sinj.h \
-    systray/systray.h
+    systray/systray.h \
+    window/editwindow.h \
+    window/settingwindow.h
 
 FORMS += \
-    settingwindow/settingwindow.ui \
-    sinj/sinj.ui
+    sinj/sinj.ui \
+    window/editwindow.ui \
+    window/settingwindow.ui
 
 TRANSLATIONS += \
     Sinj_zh_CN.ts

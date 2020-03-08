@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "systray/systray.h"
-#include "settingwindow/settingwindow.h"
+#include "window/settingwindow.h"
 #include "filemanager/filemanager.h"
 
 QT_BEGIN_NAMESPACE
@@ -31,6 +31,7 @@ protected:
 
     void initData();
     void displayText();
+    void recvEditData(QString key, QStringList list);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
@@ -40,5 +41,6 @@ protected:
 protected slots:
     void on_closeBtn_clicked();
     void on_settingBtn_clicked();
+    void on_editBtn_clicked();
 };
 #endif // SINJ_H

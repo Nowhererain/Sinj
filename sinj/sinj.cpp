@@ -1,6 +1,7 @@
 #include "sinj.h"
 #include "ui_sinj.h"
 #include "global.h"
+#include "window/editwindow.h"
 #include <QMouseEvent>
 #include <QPainter>
 #include <QDesktopWidget>
@@ -53,6 +54,11 @@ void Sinj::displayText()
     }
 }
 
+void Sinj::recvEditData(QString key, QStringList list)
+{
+    fileManager.saveData(key, list);
+}
+
 void Sinj::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
@@ -100,6 +106,12 @@ void Sinj::on_settingBtn_clicked()
     QRect rect = QApplication::desktop()->availableGeometry();
     settingWindow->move((rect.width() - settingWindow->width()) * 0.5, (rect.height() - settingWindow->height()) * 0.5);
     settingWindow->exec();
+}
+
+void Sinj::on_editBtn_clicked()
+{
+    EditWindow * editWindow = new EditWindow;
+
 }
 
 Sinj::~Sinj()
