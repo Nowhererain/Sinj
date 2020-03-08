@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    filemanager/filemanager.cpp \
     hook/hook.cpp \
     main.cpp \
     settingwindow/settingwindow.cpp \
@@ -23,6 +24,8 @@ SOURCES += \
     systray/systray.cpp
 
 HEADERS += \
+    filemanager/filemanager.h \
+    global.h \
     hook/hook.h \
     settingwindow/settingwindow.h \
     sinj/sinj.h \

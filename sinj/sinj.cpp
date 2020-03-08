@@ -1,5 +1,6 @@
 #include "sinj.h"
 #include "ui_sinj.h"
+#include "global.h"
 #include <QMouseEvent>
 #include <QPainter>
 #include <QDesktopWidget>
@@ -16,6 +17,40 @@ Sinj::Sinj(QWidget *parent)
 
     systray = new Systray(QIcon(":icon/icon.png"), this);
     settingWindow = new SettingWindow(this);
+
+    fileManager.setPath(INI_PATH, DATA_PATH);
+    initData();
+    displayText();
+}
+
+void Sinj::initData()
+{
+    pressed = false;
+
+    sList = fileManager.getList();
+    Config config = fileManager.getConfig();
+    currId = config.id;
+    currKey = config.key;
+    if(sList.size() == 0){
+        currId = -1;
+        currKey = "";
+    }
+    else if(currId < sList.size() && currKey == sList[currId]){
+        currId = (currId + 1) % sList.size();
+    }
+    else{
+        if(currId >= sList.size()) currId = 0;
+        currKey = sList[currId];
+    }
+}
+
+void Sinj::displayText()
+{
+    if(currId == -1) ui->textLbl->setText(EMPTY_TEXT);
+    else{
+        QStringList textList = fileManager.getData(currKey);
+        ui->textLbl->setText(textList[CON_POS]);
+    }
 }
 
 void Sinj::mousePressEvent(QMouseEvent *event)

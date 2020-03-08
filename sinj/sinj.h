@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "systray/systray.h"
 #include "settingwindow/settingwindow.h"
+#include "filemanager/filemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Sinj; }
@@ -21,9 +22,15 @@ protected:
     Ui::Sinj *ui;
     bool pressed;
     QPoint wpos;
+    int currId;
+    QString currKey;
+    QStringList sList;
+    FileManager fileManager;
     Systray * systray = nullptr;
     SettingWindow * settingWindow = nullptr;
 
+    void initData();
+    void displayText();
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
