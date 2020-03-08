@@ -23,6 +23,8 @@ public:
     Config getConfig();
     QStringList getList();
     QStringList getData(QString key);
+    void saveData(QString key, QStringList list);
+    void remove(QString key);
 
 protected:
     QString iniName;

@@ -54,6 +54,22 @@ QStringList FileManager::getData(QString key)
     return list;
 }
 
+void FileManager::saveData(QString key, QStringList list)
+{
+    QByteArray data;
+    data.append(list[REF_POS]);
+    data.append(list[CON_POS].replace("\n", "\\k"));
+    data = qCompress(data);
+    QSettings settings(dataName, QSettings::IniFormat);
+    settings.setValue(key, data);
+}
+
+void FileManager::remove(QString key)
+{
+    QSettings settings(dataName, QSettings::IniFormat);
+    settings.remove(key);
+}
+
 FileManager::~FileManager()
 {
     qDebug() << "FileManager call destruction";
