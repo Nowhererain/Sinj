@@ -15,19 +15,20 @@ class FileManager : public QObject
     Q_OBJECT
 public:
     FileManager(){}
-    FileManager(QString iniPath, QString dataPath);
+    FileManager(QString configPath, QString dataPath);
     ~FileManager();
-    void setPath(QString iniPath, QString dataPath);
+    void setPath(QString configPath, QString dataPath);
     QString iniPath();
     QString dataPath();
     Config getConfig();
     QStringList getList();
     QStringList getData(QString key);
+    void saveConfig(Config config);
     void saveData(QString key, QStringList list);
     void remove(QString key);
 
 protected:
-    QString iniName;
+    QString configName;
     QString dataName;
 
 signals:

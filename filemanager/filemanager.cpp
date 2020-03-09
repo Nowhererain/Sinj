@@ -3,20 +3,20 @@
 #include <QSettings>
 #include <QDebug>
 
-FileManager::FileManager(QString iniPath, QString dataPath)
+FileManager::FileManager(QString configPath, QString dataPath)
 {
-    setPath(iniPath, dataPath);
+    setPath(configPath, dataPath);
 }
 
-void FileManager::setPath(QString iniPath, QString dataPath)
+void FileManager::setPath(QString configPath, QString dataPath)
 {
-    iniName = iniPath;
+    configName = configPath;
     dataName = dataPath;
 }
 
 QString FileManager::iniPath()
 {
-    return iniName;
+    return configName;
 }
 
 QString FileManager::dataPath()
@@ -26,7 +26,7 @@ QString FileManager::dataPath()
 
 Config FileManager::getConfig()
 {
-    QSettings settings(iniName, QSettings::IniFormat);
+    QSettings settings(configName, QSettings::IniFormat);
     Config config;
     config.id = settings.value(iniId).toInt();
     config.key = settings.value(iniKey).toString();
@@ -44,14 +44,24 @@ QStringList FileManager::getData(QString key)
 {
     QSettings settings(dataName, QSettings::IniFormat);
     QByteArray data = settings.value(key.toUtf8().data()).toByteArray();
-    data = qCompress(data);
+    data = qUncompress(data);
+
     QStringList list;
     int pos = data.indexOf(REF_END);
     list.append(pos == -1 ? "" : data.left(pos + 1).data());
-    data.remove(0, pos + strlen(REF_END));
+
+    if(pos != -1) data.remove(0, pos + strlen(REF_END));
     data.replace("\\k", "\n");
     list.append(data.data());
+
     return list;
+}
+
+void FileManager::saveConfig(Config config)
+{
+    QSettings settings(configName, QSettings::IniFormat);
+    settings.setValue(iniId, config.id);
+    settings.setValue(iniKey, config.key);
 }
 
 void FileManager::saveData(QString key, QStringList list)
@@ -59,7 +69,9 @@ void FileManager::saveData(QString key, QStringList list)
     QByteArray data;
     data.append(list[REF_POS]);
     data.append(list[CON_POS].replace("\n", "\\k"));
+
     data = qCompress(data);
+
     QSettings settings(dataName, QSettings::IniFormat);
     settings.setValue(key, data);
 }

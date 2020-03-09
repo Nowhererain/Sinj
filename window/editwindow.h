@@ -21,7 +21,11 @@ protected:
 protected slots:
     void on_okBtn_clicked();
     void on_cancelBtn_clicked();
+    void on_noRefBtn_clicked();
+    void on_useRefBtn_clicked();
 
+signals:
+    void sendEditData(QString , QStringList);
 };
 
 #endif // EDITWINDOW_H

@@ -12,6 +12,9 @@ Sinj::Sinj(QWidget *parent)
     , ui(new Ui::Sinj)
 {
     ui->setupUi(this);
+    QPalette pe;
+    pe.setColor(QPalette::WindowText, Qt::white);
+    ui->textLbl->setPalette(pe);
 
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -32,31 +35,49 @@ void Sinj::initData()
     Config config = fileManager.getConfig();
     currId = config.id;
     currKey = config.key;
+    //qDebug() << sList;
     if(sList.size() == 0){
         currId = -1;
         currKey = "";
     }
-    else if(currId < sList.size() && currKey == sList[currId]){
+    else if(0 <= currId && currId < sList.size() && currKey == sList[currId]){
         currId = (currId + 1) % sList.size();
     }
     else{
-        if(currId >= sList.size()) currId = 0;
+        if(currId == -1 || currId >= sList.size()) currId = 0;
         currKey = sList[currId];
     }
+    //qDebug() << currKey;
 }
 
 void Sinj::displayText()
 {
-    if(currId == -1) ui->textLbl->setText(EMPTY_TEXT);
+    QString str;
+    if(currId == -1) str = EMPTY_TEXT;
     else{
         QStringList textList = fileManager.getData(currKey);
-        ui->textLbl->setText(textList[CON_POS]);
+        str = textList[CON_POS];
     }
+
+    QFont font(DISPLAY_FONT);
+    if(str.length() <= 60) font.setPointSize(16);
+    else font.setPointSize(12);
+    ui->textLbl->setFont(font);
+    ui->textLbl->setText(str);
 }
 
 void Sinj::recvEditData(QString key, QStringList list)
 {
+    sList.append(key);
     fileManager.saveData(key, list);
+}
+
+void Sinj::save()
+{
+    Config config;
+    config.id = currId;
+    config.key = currKey;
+    fileManager.saveConfig(config);
 }
 
 void Sinj::mousePressEvent(QMouseEvent *event)
@@ -105,17 +126,39 @@ void Sinj::on_settingBtn_clicked()
     }
     QRect rect = QApplication::desktop()->availableGeometry();
     settingWindow->move((rect.width() - settingWindow->width()) * 0.5, (rect.height() - settingWindow->height()) * 0.5);
-    settingWindow->exec();
+    settingWindow->open();
 }
 
 void Sinj::on_editBtn_clicked()
 {
-    EditWindow * editWindow = new EditWindow;
+    EditWindow * editWindow = new EditWindow(this);
+    editWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(editWindow, &EditWindow::sendEditData, this, &Sinj::recvEditData);
+    QRect rect = QApplication::desktop()->availableGeometry();
+    editWindow->move((rect.width() - editWindow->width()) * 0.5, (rect.height() - editWindow->height()) * 0.5);
+    editWindow->open();
+}
 
+void Sinj::on_nextBtn_clicked()
+{
+    if(currId == -1 || currId >= sList.size()) currId = 0;
+    else if(sList[currId] == currKey) currId = (currId + 1) % sList.size();
+
+    currKey = sList[currId];
+    displayText();
+}
+
+void Sinj::on_lastBtn_clicked()
+{
+    currId--;
+    if(currId == -1 || currId > sList.size()) currId = sList.size() - 1;
+    currKey = sList[currId];
+    displayText();
 }
 
 Sinj::~Sinj()
 {
-    qDebug() << "Sinj call detruction";
+    save();
     delete ui;
+    qDebug() << "Sinj call detruction";
 }
